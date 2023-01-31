@@ -4,7 +4,7 @@ import comparazonLogo from "../images/final-logo.png";
 
 export default function Footer() {
 	return (
-		<div>
+		<div clas>
 			<footer class="p-4 bg-white rounded-lg shadow md:px-6 md:py-8 dark:bg-gray-900">
 				<div class="sm:flex sm:items-center sm:justify-between">
 					<a href="/" className="flex items-center">

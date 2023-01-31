@@ -1,6 +1,6 @@
 import { useSignup } from "../hooks/useSignup";
 import { useState } from "react";
-import { useLocation , useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
@@ -26,7 +26,7 @@ export default function SignUp() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		console.log(email,password)
+		console.log(email, password);
 		await signup(email, password);
 	};
 
@@ -98,14 +98,6 @@ export default function SignUp() {
 									autoComplete="new-password"
 								/>
 							</Grid>
-							{/* <Grid item xs={12}>
-								<FormControlLabel
-									control={
-										<Checkbox value="allowExtraEmails" color="primary" />
-									}
-									label="I want to receive inspiration, marketing promotions and updates via email."
-								/>
-							</Grid> */}
 						</Grid>
 						<Grid container justifyContent="center" className="mt-[5%]">
 							<Grid item>

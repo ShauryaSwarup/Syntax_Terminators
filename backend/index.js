@@ -1,50 +1,53 @@
 const express = require("express");
 const mongoose = require("mongoose");
-// const session = require('express-session')
-// const passport = require('passport')
-// const LocalStrategy = require('passport-local')
 
+//import routes
 const userRoutes = require("./routes/users");
+const favoriteRoutes = require("./routes/favorites");
+const productRoutes = require("./routes/products");
 
-const User = require("./models/user");
+const Product = require("./models/product");
 
-// express app
+//middleware
 const app = express();
-
-// middleware
 app.use(express.json());
-
-// const sessionConfig = {
-//     secret: 'thisshouldbeabettersecret',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: {
-//         httpOnly: true,
-//         expires: Date.now() + 1000*60*60*24*7,
-//         maxAge: 1000*60*60*24*7
-//     }
-// }
-// app.use(session(sessionConfig))
-
-// app.use(passport.initialize())
-// app.use(passport.session())
-// passport.use(new LocalStrategy(User.authenticate()))
-
-// passport.serializeUser(User.serializeUser())
-// passport.deserializeUser(User.deserializeUser())
-
 app.use((req, res, next) => {
 	console.log(req.path, req.method);
 	next();
 });
 
 //routes
-app.use("/comparazon/user", userRoutes);
+app.get("/products/filter", async (req, res) => {
+	const { brand, price } = req.query;
+	console.log(brand.split(","));
+	console.log(price.split("to"));
+	const pricemin = price.split("to")[0]
+	const pricemax = price.split("to")[1];
+	console.log(pricemin,pricemax)
 
-// connect to db
+	try {
+		// 	// const title = new RegExp(searchQuery, "i");
+
+		const phones = await Product.find({
+			$and: [
+				{ brand: { $in: brand.split(",") } },
+				{ price: { $gt: pricemin, $lt: pricemax } },
+			],
+		});
+		// console.log(phones)
+		res.json(phones);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+});
+
+app.use("/comparazon/user", userRoutes);
+app.use("/products", productRoutes);
+app.use("/user", favoriteRoutes);
+
 mongoose
 	.connect(
-		"mongodb+srv://Comparazon:sharayu2000@cluster0.vkvevwe.mongodb.net/test",
+		"mongodb+srv://Comparazon:sharayu2000@cluster0.vkvevwe.mongodb.net/shaurya-test",
 		{ useNewUrlParser: true, useUnifiedTopology: true }
 	)
 	.then(() => {

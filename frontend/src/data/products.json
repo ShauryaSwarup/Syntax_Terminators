@@ -1,0 +1,54 @@
+[
+	{
+		"data": [
+			{
+				"_id": "63d00fd90a091b0c9b92f2ce",
+				"url": "https://www.amazon.in/Redmi-Charcoal-Storage-Battery-Booster/dp/B09XB8GFBQ",
+				"title": "Redmi 10A (Charcoal Black, 4GB RAM, 64GB Storage) | 2 Ghz Octa Core Helio G25 | 5000 mAh Battery | Finger Print Sensor | Upto 5GB RAM with RAM Booster",
+				"brand": "Redmi",
+				"model_name": "Redmi 10A ",
+				"price": "8,999",
+				"star_rating": "4.0 out of 5 stars",
+				"colour": "Charcoal Black",
+				"storage_cap": [" 4GB RAM", " 64GB Storage"],
+				"__v": 0
+			},
+			{
+				"_id": "63d00fd90a091b0c9b92f2cd",
+				"url": "https://www.amazon.in/Redmi-Storage-Battery-Finger-Booster/dp/B0B6PT926Y",
+				"title": "Redmi 10A Sport (Sea Blue, 6GB RAM, 128GB Storage) | 2 Ghz Octa Cor Helio G25 | 5000 mAh Battery | Finger Print Sensor | Upto 8GB RAM with RAM Booster",
+				"brand": "Redmi",
+				"model_name": "Redmi 10A Sport ",
+				"price": "10,499",
+				"star_rating": "3.7 out of 5 stars",
+				"colour": "Sea Blue",
+				"storage_cap": [" 6GB RAM", " 128GB Storage"],
+				"__v": 0
+			},
+			{
+				"_id": "63d00fd90a091b0c9b92f2dc",
+				"url": "https://www.amazon.in/Redmi-Storage-Battery-Finger-Booster/dp/B09XB7SRQ5",
+				"title": "Redmi 10A (Slate Grey, 4GB RAM, 64GB Storage) | 2 Ghz Octa Core Helio G25 | 5000 mAh Battery | Finger Print Sensor | Upto 5GB RAM with RAM Booster",
+				"brand": "Redmi",
+				"model_name": "Redmi 10A ",
+				"price": "8,999",
+				"star_rating": "4.0 out of 5 stars",
+				"colour": "Slate Grey",
+				"storage_cap": [" 4GB RAM", " 64GB Storage"],
+				"__v": 0
+			},
+			{
+				"_id": "63d00fd90a091b0c9b92f2df",
+				"url": "https://www.amazon.in/Redmi-Storage-Battery-Finger-Booster/dp/B0B6PSPJ8N",
+				"title": "Redmi 10A Sport (Slate Grey, 6GB RAM, 128GB Storage) | 2 Ghz Octa Cor Helio G25 | 5000 mAh Battery | Finger Print Sensor | Upto 8GB RAM with RAM Booster",
+				"brand": "Redmi",
+				"model_name": "Redmi 10A Sport ",
+				"price": "10,499",
+				"star_rating": "3.7 out of 5 stars",
+				"colour": "Slate Grey",
+				"storage_cap": [" 6GB RAM", " 128GB Storage"],
+				"__v": 0
+			}
+		]
+	}
+]

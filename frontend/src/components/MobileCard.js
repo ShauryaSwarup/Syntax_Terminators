@@ -8,7 +8,11 @@ import Typography from "@mui/material/Typography";
 
 import { Link } from "react-router-dom";
 
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 export default function MobileCard(props) {
+
 	const { img, id, price, title } = props;
 	const url = `/product/${id}`;
 	return (
