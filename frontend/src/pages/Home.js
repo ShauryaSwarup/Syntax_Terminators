@@ -1,13 +1,14 @@
-import React from "react";
-import MobileSlider from "../components/MobileSlider";
-
+import React from 'react'
+import MobileSlider from '../components/MobileSlider'
+import Banner1 from '../images/Banner1.png'
 export const Home = () => {
 	return (
 		<div>
+			<img src={Banner1} alt="" />
 			{/* <BannerSlider /> */}
 			<MobileSlider />
 		</div>
-	);
-};
+	)
+}
 
-export default Home;
+export default Home

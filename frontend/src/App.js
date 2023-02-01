@@ -1,29 +1,29 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Product from "./pages/Product";
-import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
-import Favorites from "./pages/Favorites";
-import Mobiles from "./pages/Mobiles";
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Product from './pages/Product'
+import Signup from './pages/Signup'
+import Profile from './pages/Profile'
+import Favorites from './pages/Favorites'
+import Mobiles from './pages/Mobiles'
 
-import WithNav1 from "./components/WithNav1";
-import WithNav2 from "./components/WithNav2";
-import Footer from "./components/Footer";
-import New from "./pages/New";
-import Search from "./pages/Search";
-import { useAuthContext } from "./hooks/useAuthContext";
-import FilterResult from "./pages/FilterResult";
+import WithNav1 from './components/WithNav1'
+import WithNav2 from './components/WithNav2'
+import Footer from './components/Footer'
+import Search from './pages/Search'
+import { useAuthContext } from './hooks/useAuthContext'
+import FilterResult from './pages/FilterResult'
 
 function App() {
-	const { user } = useAuthContext();
+	const { user } = useAuthContext()
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route element={<WithNav1 />}>
 					<Route path="/" element={<Home />} />
 					<Route path="/mobiles" element={<Mobiles />} />
+					<Route path="/filter" element={<FilterResult />} />
 					<Route path="/product/:_id" element={<Product />} />
 					<Route
 						path="/profile"
@@ -31,11 +31,11 @@ function App() {
 					/>
 					<Route
 						path="/favorites"
-						element={user ? <Favorites /> : <Navigate to="/login" />}
+						element={
+							user ? <Favorites /> : <Navigate to="/login" />
+						}
 					/>
-					<Route path="/new" element={<New />} />
 					<Route path="/search" element={<Search />} />
-					<Route path="/filter" element={<FilterResult />} />
 				</Route>
 				<Route element={<WithNav2 />}>
 					<Route
@@ -50,7 +50,7 @@ function App() {
 			</Routes>
 			<Footer />
 		</BrowserRouter>
-	);
+	)
 }
 
-export default App;
+export default App

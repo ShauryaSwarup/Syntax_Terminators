@@ -1,53 +1,57 @@
-import { Box, Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import MobileCard from "../components/MobileCardTemp";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-import FilterNav from "../components/FilterNav";
+import { Box, Grid } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import MobileCard from '../components/MobileCardTemp'
+import { styled } from '@mui/material/styles'
+import Paper from '@mui/material/Paper'
+import FilterNav from '../components/FilterNav'
 
 const Item = styled(Paper)(({ theme }) => ({
-	backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+	backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
 	...theme.typography.body2,
 	padding: theme.spacing(1),
-	textAlign: "center",
+	textAlign: 'center',
 	color: theme.palette.text.secondary,
-}));
+}))
 
 function FilterResult() {
-	const [products, setProducts] = useState([]);
-	const [searchParams, setSearchParams] = useSearchParams();
-	const queryBrand = searchParams.get("brand");
-  const queryPrice = searchParams.get("price")
-	console.log(queryBrand);
+	const [products, setProducts] = useState([])
+	const [searchParams, setSearchParams] = useSearchParams()
+	const queryBrand = searchParams.get('brand')
+	const queryPrice = searchParams.get('price')
 
 	useEffect(() => {
-		fetch(`/products/filter?brand=${queryBrand}&price=${queryPrice}`)
-			.then((res) => res.json())
-			.then((jsonRes) => setProducts(jsonRes));
-	}, []);
-	console.log(products);
+		if (queryPrice.length > 0) {
+			fetch(`/products/filter?brand=${queryBrand}&price=${queryPrice}`)
+				.then((res) => res.json())
+				.then((jsonRes) => setProducts(jsonRes))
+		} else {
+			fetch(`/products/filter?brand=${queryBrand}&price=`)
+				.then((res) => res.json())
+				.then((jsonRes) => setProducts(jsonRes))
+		}
+	}, [])
+
+	console.log(products)
 
 	return (
 		<div>
-      <FilterNav/>
+			<FilterNav />
 			<div>
 				<Box sx={{ flexGrow: 1 }}>
-					<Grid container spacing={1}>
+					<Grid container spacing={1} className="flex justify-center">
 						{products.map((mobile) => {
 							return (
-								<Grid>
-									<Item>
-										<MobileCard {...mobile} />
-									</Item>
+								<Grid className="p-3">
+									<MobileCard {...mobile} />
 								</Grid>
-							);
+							)
 						})}
 					</Grid>
 				</Box>
 			</div>
 		</div>
-	);
+	)
 }
 
-export default FilterResult;
+export default FilterResult

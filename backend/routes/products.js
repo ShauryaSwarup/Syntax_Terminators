@@ -1,16 +1,18 @@
-const express = require("express");
+const express = require('express')
 const {
 	show_all_products,
 	show_product_by_id,
 	search_page,
-} = require("../controllers/productsController");
+	filter_page,
+} = require('../controllers/productsController')
 
-const router = express.Router();
+const router = express.Router()
 
-router.get("/showdb", show_all_products);
+router.get('/showdb', show_all_products)
 
-router.get("/showPhone/:_id", show_product_by_id);
+router.get('/showPhone/:_id', show_product_by_id)
 
-router.get("/search", search_page);
+router.get('/search', search_page)
 
-module.exports = router;
+router.get('/filter', filter_page)
+module.exports = router

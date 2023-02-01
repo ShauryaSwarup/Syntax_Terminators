@@ -1,35 +1,33 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardHeader from "@mui/material/CardHeader";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import StarIcon from "@mui/icons-material/StarBorder";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
+import CssBaseline from '@mui/material/CssBaseline'
+import Grid from '@mui/material/Grid'
+import StarIcon from '@mui/icons-material/StarBorder'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 // import Link from "@mui/material/Link";
-import GlobalStyles from "@mui/material/GlobalStyles";
-import Container from "@mui/material/Container";
+import GlobalStyles from '@mui/material/GlobalStyles'
+import Container from '@mui/material/Container'
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from '../hooks/useAuthContext'
 
-import mobileList from "../data/mobileList";
-
-import MobileCard from "../components/MobileCard";
+import mobileList from '../data/mobileList'
 
 function PricingContent() {
-	const { user } = useAuthContext();
-	const name = user.email.split("@")[0];
+	const { user } = useAuthContext()
+	const name = user.email.split('@')[0]
 	return (
 		<React.Fragment>
 			<GlobalStyles
-				styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
+				styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }}
 			/>
 			<CssBaseline />
 
@@ -68,9 +66,9 @@ function PricingContent() {
 				}}
 			></Container>
 		</React.Fragment>
-	);
+	)
 }
 
 export default function Profile() {
-	return <PricingContent />;
+	return <PricingContent />
 }
