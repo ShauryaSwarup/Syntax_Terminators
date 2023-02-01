@@ -1,22 +1,22 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Product from './pages/Product'
-import Signup from './pages/Signup'
-import Profile from './pages/Profile'
-import Favorites from './pages/Favorites'
-import Mobiles from './pages/Mobiles'
+import Home from "./pages/Products/Home";
+import Login from "./pages/Auth/Login";
+import Product from "./pages/Products/Product";
+import Signup from "./pages/Auth/Signup";
+import Profile from "./pages/Auth/Profile";
+import Favorites from "./pages/Auth/Favorites";
+import Mobiles from "./pages/Search/Mobiles";
 
-import WithNav1 from './components/WithNav1'
-import WithNav2 from './components/WithNav2'
-import Footer from './components/Footer'
-import Search from './pages/Search'
-import { useAuthContext } from './hooks/useAuthContext'
-import FilterResult from './pages/FilterResult'
+import WithNav1 from "./components/Navbar/WithNav1";
+import WithNav2 from "./components/Navbar/WithNav2";
+import Footer from "./components/Navbar/Footer";
+import Search from "./pages/Search/Search";
+import { useAuthContext } from "./hooks/useAuthContext";
+import FilterResult from "./pages/Search/FilterResult";
 
 function App() {
-	const { user } = useAuthContext()
+	const { user } = useAuthContext();
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -31,9 +31,7 @@ function App() {
 					/>
 					<Route
 						path="/favorites"
-						element={
-							user ? <Favorites /> : <Navigate to="/login" />
-						}
+						element={user ? <Favorites /> : <Navigate to="/login" />}
 					/>
 					<Route path="/search" element={<Search />} />
 				</Route>
@@ -50,7 +48,7 @@ function App() {
 			</Routes>
 			<Footer />
 		</BrowserRouter>
-	)
+	);
 }
 
-export default App
+export default App;

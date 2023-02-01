@@ -1,0 +1,37 @@
+import React from "react";
+
+function ProductDetails(props) {
+	const {
+		_id: _ID,
+		url,
+		img_url,
+		title,
+		brand,
+		model_name,
+		price,
+		star_rating,
+		no_rating,
+		colour,
+		storage_cap,
+	} = props;
+	return (
+		<div>
+			<div class="flex justify-center">
+				<div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
+					<img
+						src={img_url}
+						key={props.title}
+						alt=""
+						className="max-h-fit"
+					/>
+					<h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">
+						{props.title}
+					</h5>
+					{/* <p class="text-gray-700 text-base mb-4">Original price: {props.price}</p> */}
+				</div>
+			</div>
+		</div>
+	);
+}
+
+export default ProductDetails;

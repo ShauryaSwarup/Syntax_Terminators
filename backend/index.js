@@ -6,8 +6,6 @@ const userRoutes = require('./routes/users')
 const favoriteRoutes = require('./routes/favorites')
 const productRoutes = require('./routes/products')
 
-const Product = require('./models/product')
-
 //middleware
 const app = express()
 app.use(express.json())
@@ -21,6 +19,7 @@ app.use('/comparazon/user', userRoutes)
 app.use('/products', productRoutes)
 app.use('/user', favoriteRoutes)
 
+//server connect with db 
 mongoose
 	.connect(
 		'mongodb+srv://Comparazon:sharayu2000@cluster0.vkvevwe.mongodb.net/shaurya-test',
