@@ -14,6 +14,14 @@ app.use((req, res, next) => {
 	next()
 })
 
+//models
+const TimeStamp = require('./models/time')
+app.get("/time", (req, res) => {
+	TimeStamp.find()
+		.then((items) => res.json(items))
+		.catch((e) => console.log(e));
+});
+
 //routes
 app.use('/comparazon/user', userRoutes)
 app.use('/products', productRoutes)

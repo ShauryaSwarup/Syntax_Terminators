@@ -19,17 +19,23 @@ function FilterResult() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const queryBrand = searchParams.get("brand");
 	const queryPrice = searchParams.get("price");
-
+	const queryPriceSort = searchParams.get("priceSort");
+	const queryRatingSort = searchParams.get("ratingSort");
+	// const queryStorage = searchParams.get("storage");
 	useEffect(() => {
-		if (queryPrice.length > 0) {
-			fetch(`/products/filter?brand=${queryBrand}&price=${queryPrice}`)
+		// if (queryPrice.length > 0) {
+			fetch(
+				`/products/filter?brand=${queryBrand}&price=${queryPrice}&priceSort=${queryPriceSort}&ratingSort=${queryRatingSort}`
+			)
 				.then((res) => res.json())
 				.then((jsonRes) => setProducts(jsonRes));
-		} else {
-			fetch(`/products/filter?brand=${queryBrand}&price=`)
-				.then((res) => res.json())
-				.then((jsonRes) => setProducts(jsonRes));
-		}
+		// } else {
+		// 	fetch(
+		// 		`/products/filter?brand=${queryBrand}&price=&priceSort=${queryPriceSort}&ratingSort=${queryRatingSort}`
+		// 	)
+		// 		.then((res) => res.json())
+		// 		.then((jsonRes) => setProducts(jsonRes));
+		// }
 	}, []);
 
 	console.log(products);
@@ -37,19 +43,17 @@ function FilterResult() {
 	return (
 		<div>
 			<FilterNav />
-			<div>
-				<Box sx={{ flexGrow: 1 }}>
-					<Grid container spacing={1} className="flex justify-center">
-						{products.map((mobile) => {
-							return (
-								<Grid className="p-3">
-									<MobileCard {...mobile} />
-								</Grid>
-							);
-						})}
-					</Grid>
-				</Box>
-			</div>
+			<Box sx={{ flexGrow: 1 }}>
+				<Grid container spacing={1} className="flex justify-center">
+					{products.map((mobile) => {
+						return (
+							<Grid className="p-3">
+								<MobileCard {...mobile} />
+							</Grid>
+						);
+					})}
+				</Grid>
+			</Box>
 		</div>
 	);
 }

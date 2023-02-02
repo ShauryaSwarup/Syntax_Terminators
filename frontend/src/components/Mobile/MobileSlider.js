@@ -1,6 +1,8 @@
 import { React, useEffect, useState } from "react";
-import Slider from "react-slick";
+
 import MobileCardTemp from "./MobileCardTemp";
+
+import Slider from "react-slick";
 
 export default function MobileSlider() {
 	const [product, setProduct] = useState([]);
@@ -20,14 +22,13 @@ export default function MobileSlider() {
 	};
 	return (
 		<div className="m-4">
-			<h1 className="text-2xl mb-4">Mobiles</h1>
+			<h1 className="text-2xl">Mobiles</h1>
 			<Slider {...settings} className="m-8">
 				{product.map((mobile) => {
 					const { _id } = mobile;
 					return (
-						<div>
-							{/* <MobileCard {...mobile} /> */}
-							<MobileCardTemp {...mobile} />
+						<div className="px-2">
+							<MobileCardTemp {...mobile} key={_id}/>
 						</div>
 					);
 				})}

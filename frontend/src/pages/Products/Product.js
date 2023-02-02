@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useAuthContext } from "../../hooks/useAuthContext";
 
@@ -7,10 +7,9 @@ import ProductDetails from "../../components/Product/ProductDetails";
 import {
 	ProductDealAmazon,
 	ProductDealFlipkart,
+	ProductDealNoFlipkart,
 } from "../../components/Product/ProductDeals";
 import ProductInfo from "../../components/Product/ProductInfo";
-
-import axios from "axios";
 
 function Product() {
 	const [product, setProduct] = useState();
@@ -27,7 +26,7 @@ function Product() {
 
 	const addToFavorites = () => {
 		if (!user) {
-			console.log("please sign in to add to favorites");
+			window.location.href = "/login";
 			return;
 		}
 		setFavorite(favorite.push(product));
@@ -47,15 +46,26 @@ function Product() {
 
 	return (
 		<div className="flex flex-col mx-[10%] my-[5%] space-y-[5%]">
-			<div className="flex flex-row space-x-4 justify-evenly">
-				<ProductDetail />
-				<div className="">
-					<div className="flex space-x-4">
-						<ProdAmazon />
-						<ProdFlipkart />
+			<div className="flex flex-col">
+				<div className="flex flex-row space-x-4 justify-evenly">
+					<ProductDetail />
+					<div className="flex flex-col">
+						<div className="flex space-x-12">
+							<ProdAmazon className="h-64 w-32" />
+							<ProdFlipkart className="h-64 w-32" />
+						</div>
+						<div className="flex justify-center">
+							<Link to="/favorites">
+								<button
+									className="my-16 max-h-10 text-white bg-red-500 hover:bg-red-600  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+									onClick={addToFavorites}
+								>
+									Add to favorites
+								</button>
+							</Link>
+						</div>
 					</div>
 				</div>
-				<button onClick={addToFavorites}>Add to favorites</button>
 			</div>
 			<div>
 				<ProductInfoTable />

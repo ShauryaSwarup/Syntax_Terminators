@@ -36,8 +36,13 @@ export default function ProductInfo(props) {
 		createData("Storage Capacity", storage_cap),
 	];
 	return (
-		<div className="min-w-[100%]">
-			<TableContainer component={Paper}>
+		<div className="min-w-[100%] shadow-lg">
+			<TableContainer
+				sx={{
+					backgroundColor: '#F8F8F8',
+				}}
+				component={Paper}
+			>
 				<Table className="min-w-[100%]" aria-label="simple table">
 					<TableHead>
 						<TableRow>

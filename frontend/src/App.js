@@ -14,6 +14,7 @@ import Footer from "./components/Navbar/Footer";
 import Search from "./pages/Search/Search";
 import { useAuthContext } from "./hooks/useAuthContext";
 import FilterResult from "./pages/Search/FilterResult";
+import About from "./pages/About";
 
 function App() {
 	const { user } = useAuthContext();
@@ -31,9 +32,10 @@ function App() {
 					/>
 					<Route
 						path="/favorites"
-						element={user ? <Favorites /> : <Navigate to="/login" />}
+						element={<Favorites />}
 					/>
 					<Route path="/search" element={<Search />} />
+					<Route path="/about" element={<About />} />
 				</Route>
 				<Route element={<WithNav2 />}>
 					<Route

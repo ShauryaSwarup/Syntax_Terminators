@@ -1,32 +1,14 @@
 import { React, useEffect, useState } from "react";
-
-const ListBrandDivs = ({ brand, onChange }) => {
-	return (
-		<>
-			<li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-				<div class="flex items-center pl-3">
-					<input
-						id={brand}
-						type="checkbox"
-						value={brand}
-						class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-						onChange={onChange}
-					/>
-					<label
-						for={brand}
-						class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-					>
-						{brand}
-					</label>
-				</div>
-			</li>
-		</>
-	);
-};
-const ListPriceDivs = () => {};
+import {
+	ListBrandDivs,
+	ListPriceDivs,
+	SidebarButton,
+	SidebarButtonCross,
+} from "./FilterNavComponents";
 
 function FilterNav() {
 	const [brandFetch, setBrandFetch] = useState([]);
+	const [storageFetch, setStorageFetch] = useState([]);
 
 	useEffect(() => {
 		fetch(`/products/brands`)
@@ -34,9 +16,23 @@ function FilterNav() {
 			.then((jsonRes) => setBrandFetch(jsonRes));
 	}, []);
 
-	console.log(brandFetch);
+	useEffect(() => {
+		fetch(`/products/storage`)
+			.then((res) => res.json())
+			.then((jsonRes) => setStorageFetch(jsonRes));
+	}, []);
+
+	const prices = [
+		{ value: "0to9999", data: "0 - 9999" },
+		{ value: "10000to19000", data: "10000 - 19999" },
+		{ value: "20000to29000", data: "20000 - 29999" },
+		{ value: "30000to150000", data: "30000 - 150000" },
+	];
 
 	const [brand, setBrand] = useState([]);
+	const [price, setPrice] = useState(['0to150000']);
+	const [priceSort, setPriceSort] = useState(1);
+	const [ratingSort, setRatingSort] = useState(-1);
 
 	const handleCheckboxChangeBrand = (event) => {
 		const itemValue = event.target.value;
@@ -47,8 +43,6 @@ function FilterNav() {
 		}
 	};
 
-	const [price, setPrice] = useState([]);
-
 	const handleCheckboxChangePrice = (event) => {
 		const itemValue = event.target.value;
 		if (event.target.checked) {
@@ -56,6 +50,14 @@ function FilterNav() {
 		} else {
 			setPrice(price.filter((i) => i !== itemValue));
 		}
+	};
+
+	const handleChangeRatingSort = (e) => {
+		setRatingSort(e.target.value);
+	};
+
+	const handleChangePriceSort = (e) => {
+		setPriceSort(e.target.value);
 	};
 
 	const queryBrand = brand
@@ -66,58 +68,86 @@ function FilterNav() {
 		.map((item) => `${encodeURIComponent(item)}`)
 		.join(",");
 
-	const url = `/filter?brand=${queryBrand}&price=${queryPrice}`;
+	const url = `/filter?brand=${queryBrand}&price=${queryPrice}&priceSort=${priceSort}&ratingSort=${ratingSort}`;
+
 	const applyFilters = (e) => {
 		e.preventDefault();
 		window.location.href = url;
 		console.log(url);
 	};
 
+	const [showMoreBrand, setShowMoreBrand] = useState(false);
+	const [showMoreStor, setShowMoreStor] = useState(false);
+
+	const toggleShowMoreBrand = (e) => {
+		e.preventDefault();
+		setShowMoreBrand(!showMoreBrand);
+	};
 	return (
 		<>
-			<button
-				data-drawer-target="sidebar-multi-level-sidebar"
-				data-drawer-toggle="sidebar-multi-level-sidebar"
-				aria-controls="sidebar-multi-level-sidebar"
-				type="button"
-				class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+			<SidebarButton />
+			<div
+				id="drawer-navigation"
+				class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
+				tabindex="-1"
+				aria-labelledby="drawer-navigation-label"
 			>
-				<span class="sr-only">Open sidebar</span>
-				<svg
-					class="w-6 h-6"
-					aria-hidden="true"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-					xmlns="http://www.w3.org/2000/svg"
+				<h5
+					id="drawer-navigation-label"
+					class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400"
 				>
-					<path
-						clip-rule="evenodd"
-						fill-rule="evenodd"
-						d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-					></path>
-				</svg>
-			</button>
-
-			<aside
-				id="sidebar-multi-level-sidebar"
-				class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-				aria-label="Sidebar"
-			>
-				<div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+					Filters
+				</h5>
+				<SidebarButtonCross />
+				<div class="py-4 overflow-y-auto">
 					<form onSubmit={applyFilters}>
 						<div
 							id="mega-menu-full-dropdown"
-							class="mt-1 mb-[5%] border-gray-200 shadow-sm bg-gray-50 md:bg-white border-y dark:bg-gray-800 dark:border-gray-600"
+							className="mt-1 mb-[5%] border-gray-200 shadow-sm bg-gray-50 md:bg-white border-y dark:bg-gray-800 dark:border-gray-600"
 						>
-							<div class="flex max-w-screen-xl flex-col px-4 py-5 mx-auto text-gray-900 dark:text-white sm:grid-cols-2 md:px-6">
+							<div className="flex max-w-screen-xl flex-col px-4 py-5 mx-auto text-gray-900 dark:text-white sm:grid-cols-2 md:px-6">
 								<ul>
+									<h3 className="font-semibold text-gray-900 dark:text-white">
+										Sort By
+									</h3>
+									<li className="p-3">
+										<label for="underline_select1" className="sr-only">
+											Underline select
+										</label>
+										<select
+											onChange={handleChangePriceSort}
+											id="underline_select1"
+											className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+										>
+											<option selected>Price</option>
+											<option value="1">Price : Ascending</option>
+											<option value="-1">Price : Descending</option>
+										</select>
+									</li>
+									<li className="p-3">
+										<label for="underline_select2" className="sr-only">
+											Underline select
+										</label>
+										<select
+											onChange={handleChangeRatingSort}
+											id="underline_select2"
+											className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+										>
+											<option selected>Rating</option>
+											<option value="1">Rating : Ascending</option>
+											<option value="-1">Rating : Descending</option>
+										</select>
+									</li>
+
 									<li>
-										<h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
+										<h3 className="mb-4 font-semibold text-gray-900 dark:text-white">
 											Brand
 										</h3>
-										<>
-											<ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-												{brandFetch.map((brands) => {
+
+										<ul className="w-48 mb-4 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+											{brandFetch
+												.slice(0, showMoreBrand ? brandFetch.length : 5)
+												.map((brands) => {
 													return (
 														<ListBrandDivs
 															brand={brands}
@@ -125,88 +155,27 @@ function FilterNav() {
 														/>
 													);
 												})}
-											</ul>
-										</>
+										</ul>
+										<button className="underline" onClick={toggleShowMoreBrand}>
+											{showMoreBrand ? "Show Less" : "Show More"}
+										</button>
 									</li>
-								</ul>
-								<ul>
-									<h3 class="mb-4 font-semibold text-gray-900 dark:text-white">
-										Price
-									</h3>
-									<ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-										<li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-											<div class="flex items-center pl-3">
-												<input
-													id="list-radio-license"
-													type="radio"
-													value="0to9999"
-													name="list-radio"
-													class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-													onChange={handleCheckboxChangePrice}
-												/>
-												<label
-													for="list-radio-license"
-													class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-												>
-													less than 9,999
-												</label>
-											</div>
-										</li>
-										<li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-											<div class="flex items-center pl-3">
-												<input
-													id="list-radio-id"
-													type="radio"
-													value="10000to19999"
-													name="list-radio"
-													class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-													onChange={handleCheckboxChangePrice}
-												/>
-												<label
-													for="list-radio-id"
-													class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-												>
-													10,000 to 19,999
-												</label>
-											</div>
-										</li>
-										<li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-											<div class="flex items-center pl-3">
-												<input
-													id="list-radio-millitary"
-													type="radio"
-													value="20000to29999"
-													name="list-radio"
-													class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-													onChange={handleCheckboxChangePrice}
-												/>
-												<label
-													for="list-radio-millitary"
-													class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-												>
-													20,000 to 29,999
-												</label>
-											</div>
-										</li>
-										<li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-											<div class="flex items-center pl-3">
-												<input
-													id="list-radio-passport"
-													type="radio"
-													value="30000to150000"
-													name="list-radio"
-													class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-													onChange={handleCheckboxChangePrice}
-												/>
-												<label
-													for="list-radio-passport"
-													class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-												>
-													more than 30,000
-												</label>
-											</div>
-										</li>
-									</ul>
+									
+									<li>
+										<h3 className="mt-4 mb-4 font-semibold text-gray-900 dark:text-white">
+											Price
+										</h3>
+										<ul className="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+											{prices.map((price) => {
+												return (
+													<ListPriceDivs
+														price={price}
+														onChange={handleCheckboxChangePrice}
+													/>
+												);
+											})}
+										</ul>
+									</li>
 								</ul>
 
 								<button
@@ -219,7 +188,7 @@ function FilterNav() {
 						</div>
 					</form>
 				</div>
-			</aside>
+			</div>
 		</>
 	);
 }

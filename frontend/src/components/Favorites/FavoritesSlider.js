@@ -25,17 +25,16 @@ export default function MobileSlider() {
 		dots: true,
 		infinite: false,
 		speed: 500,
-		slidesToShow: 1,
+		slidesToShow: 5,
 		slidesToScroll: 1,
 	};
 	return (
 		<div className="m-4 min-h-full">
 			<Slider {...settings} className="m-8 min-h-fit">
 				{favorites.map((mobile) => {
-					const { _id } = mobile;
 					return (
 						<div>
-							<MobileCard {...mobile} key={_id} />
+							<MobileCard {...mobile} key={mobile._id} />
 						</div>
 					);
 				})}

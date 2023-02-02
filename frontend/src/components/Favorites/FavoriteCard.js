@@ -1,17 +1,10 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-
-import { Link } from "react-router-dom";
-import { useAuthContext } from "../../hooks/useAuthContext";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function MobileCard(props) {
+import { useAuthContext } from "../../hooks/useAuthContext";
+
+export default function MobileCard(props, key) {
 	const { user } = useAuthContext();
 
 	const {
@@ -54,33 +47,62 @@ export default function MobileCard(props) {
 	};
 
 	return (
-		<div>
-			<div class="flex justify-center">
-				<div class="block p-6 rounded-lg shadow-lg bg-white h-96 w-64 ">
-					<img className="max-h-60" src={img_url} key={_id} alt="" />
-					<h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
+		<div class="transform w-64 shadow-xl h-auto max-w-sm bg-white border border-gray-200 rounded-lg transition duration-300 hover:scale-105 ">
+			<a href="#">
+				<img class="p-8 rounded-t-lg" src={img_url} alt="product image" />
+			</a>
+			<div class="px-5 pb-5">
+				<Link to={urlPage}>
+					<h5 class="truncate capitalize text-xl font-semibold tracking-tight text-gray-900 dark:text-white hover:text-red-600">
 						{model_name}
 					</h5>
-					<p className="text-gray-700 text-base mb-4">
-						Best Price: {bestPrice(price, flipkart_price)}
-					</p>
+				</Link>
+				<div class="flex items-center mt-2.5 mb-2.5">
+					<span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ">
+						{star_rating}
+					</span>
+				</div>
+				<div class="flex items-center justify-between">
+					<span class="text-xl font-bold text-gray-900 dark:text-white">
+						Rs {price}
+					</span>
 					<Link to={urlPage}>
 						<button
 							type="button"
-							class=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+							className=" inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
 						>
 							Buy
 						</button>
 					</Link>
-					<button
-						type="button"
-						className=" mt-[2%] inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-						onClick={removeFromFavorites}
-					>
-						Remove from Favorites
-					</button>
 				</div>
+			</div>
+			<div className="flex justify-center mb-4">
+				<button
+					type="button"
+					className=" inline-block px-6 py-2.5 bg-red-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-600 hover:shadow-lg"
+					onClick={removeFromFavorites}
+				>
+					Remove from Favorites
+				</button>
 			</div>
 		</div>
 	);
 }
+
+// const {
+// 	_id,
+// 	url,
+// 	img_url,
+// 	title,
+// 	brand,
+// 	model_name,
+// 	price,
+// 	star_rating,
+// 	no_rating,
+// 	colour,
+// 	storage_cap,
+// 	flipkart_url,
+// 	flipkart_price,
+// 	flipkart_star_rating,
+// 	flipkart_no_rating,
+// } = props;

@@ -5,9 +5,8 @@ import MobilePage from "../../components/Mobile/MobilePage";
 
 function Mobiles() {
 	return (
-		<div className="relative">
+		<div className="">
 			<FilterNav />
-
 			<div className="inset-y-0 right-0">
 				<MobilePage />
 			</div>
