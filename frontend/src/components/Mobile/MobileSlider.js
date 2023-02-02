@@ -23,12 +23,12 @@ export default function MobileSlider() {
 	return (
 		<div className="m-4">
 			<h1 className="text-2xl">Mobiles</h1>
-			<Slider {...settings} className="m-8">
+			<Slider {...settings} className=" -mb-16 m-8 ">
 				{product.map((mobile) => {
 					const { _id } = mobile;
 					return (
 						<div className="px-2">
-							<MobileCardTemp {...mobile} key={_id}/>
+							<MobileCardTemp {...mobile} key={_id} />
 						</div>
 					);
 				})}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import comparazonLogo from "../../images/final-logo.png";
 
 function NavbarOnlyLogo() {
@@ -6,7 +7,7 @@ function NavbarOnlyLogo() {
 		<div>
 			<nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
 				<div className="container flex justify-center">
-					<a href="/" className="flex space-between ">
+					<Link to="/" className="flex space-between ">
 						<img
 							src={comparazonLogo}
 							width={200}
@@ -14,7 +15,7 @@ function NavbarOnlyLogo() {
 							alt="comparazon"
 							className="pt-2"
 						/>
-					</a>
+					</Link>
 				</div>
 			</nav>
 		</div>
